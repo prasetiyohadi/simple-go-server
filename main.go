@@ -24,7 +24,10 @@ func main() {
 		Addr:    ":8080",
 		Handler: mux,
 	}
-	s.ListenAndServe()
+	err := s.ListenAndServe()
+	if err != nil {
+		log.Printf("Cannot start server: %s/n", err)
+	}
 }
 
 func helloHandler(rw http.ResponseWriter, r *http.Request) {
@@ -32,7 +35,7 @@ func helloHandler(rw http.ResponseWriter, r *http.Request) {
 	rw.WriteHeader(200)
 	_, err := rw.Write(data)
 	if err != nil {
-		log.Println("Error writing response data.")
+		log.Printf("Error writing response data: %s/n", err)
 	}
 }
 
@@ -41,7 +44,7 @@ func funcHandler(rw http.ResponseWriter, r *http.Request) {
 	rw.WriteHeader(200)
 	_, err := rw.Write(data)
 	if err != nil {
-		log.Println("Error writing response data.")
+		log.Printf("Error writing response data: %s/n", err)
 	}
 }
 
@@ -52,6 +55,6 @@ func (h typeHandler) ServeHTTP(rw http.ResponseWriter, r *http.Request) {
 	rw.WriteHeader(200)
 	_, err := rw.Write(data)
 	if err != nil {
-		log.Println("Error writing response data.")
+		log.Printf("Error writing response data: %s/n", err)
 	}
 }
