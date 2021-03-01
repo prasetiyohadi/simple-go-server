@@ -4,7 +4,7 @@ COPY . /app
 RUN go mod download\
  && GOOS=linux GOARCH=amd64 CGO_ENABLED=0 go build -ldflags="-s -w" -o /app/app main.go
 
-FROM alpine:3.13
+FROM scratch
 WORKDIR /app
 COPY --from=builder /app/app /app/app
 EXPOSE 8080
